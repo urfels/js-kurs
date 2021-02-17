@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="./js/javascript.js"></script>
     <script src="./js/model/user.js"></script>
-    <script src="./js/model/users.js"></script>
+    <script src="./js/model/userList.js"></script>
     <script src="./js/services/userService.js"></script>
     <link rel="stylesheet" href="./css/stylesheet.css">
     <title>kleine 1 mal 1</title>
   </head>
-  <body onload="mal(); UserService.init(); ">
+  <body onload="mal(); UserService.init();">
 
     <table border="1" id="multiplikation"></table>
 
 
-    <table width="300px" border="1px" id="tableUser">
-    </table>
-    <p id="usersNames">
-    </p>
+    <table width="300px" border="1px">
+        <thead>
+            <tr id="header"/>
+        </thead>
+        <tbody id="content"/>
+      </table>
+
   </body>
 </html>

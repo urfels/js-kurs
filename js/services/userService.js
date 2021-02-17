@@ -2,10 +2,16 @@ class UserService{
 
   static init(){
   var user = UserService.createUser(1, "Herbert", "xxxx", "herbert@irgendwas.de", "01.01.1900");
-  var users = UserService.createUsers("Jannes", "Marie", "Anton","Ole");
-  UserService.createTableUser(user);
-  UserService.createUsers(users)
-  UserService.showUsers(users)
+  var user2 =UserService.createUser(2, "Felix", "x", "Felix@irgendwas.de", "01.01.1900");
+    var user3 =UserService.createUser(3, "Max", "xzzzz", "Max@irgendwas.de", "01.01.1900");
+  var userList = new UserList();
+  userList.addUser(user);
+  userList.addUser(user2);
+  userList.addUser(user3)
+  //console.log(userList.users);
+  UserService.createTableHeaderandContent(user);
+  UserService.showUsers(userList.users);
+
   }
 
   static createUser(id, name, password, email, birthday){
@@ -13,38 +19,45 @@ class UserService{
       return user;
   }
 
-  static createUsers(Benutzer1, Benutzer2, Benutzer3, Benutzer4){
-    var users = new Users(Benutzer1, Benutzer2, Benutzer3, Benutzer4)
+  static showUsers(userList){
+    var result = [];
+    var resultContent = "";
+    for (var i = 0; i < userList.length; i++) {
+      resultContent = resultContent + "<tr>"
+    let user =  userList[i];
+    var result = UserService.createTableHeaderandContent(user);
+    resultContent = resultContent + result[1] + "</tr>"
 
-    return users;
+    }
+    document.getElementById("header").innerHTML = result[0];
+    document.getElementById("content").innerHTML = resultContent;
+
   }
 
-  static showUsers(users){
-    var usersNames = Object.values(users);
-    document.getElementById("usersNames").innerHTML = usersNames;
-
-  }
 
 
-static createTableUser(user){
+
+  static createTableHeaderandContent(user){
   var columnNames = Object.keys(user);
-  var result = "<tr>";
+    var columnValueArray = Object.values(user);
+  var resultHeader = "";
+  var resultContent = "<tr>";
   for (var i = 0; i < columnNames.length; i++) {
-    var columnName = "<th>" + columnNames[i] + "</th>";
-    result += columnName;
-}
-  result += "</tr>";
 
-  var columnValueArray = Object.values(user);
-  result += "<tr>"
-  for (var i = 0; i < columnValueArray.length; i++) {
+    var wrongColumnName = columnNames[i];
+    var correctColumnName = wrongColumnName.substring(0,1).toUpperCase()+wrongColumnName.substring(1);
+
+
+    var columnName = "<th>" + correctColumnName + "</th>";
+    resultHeader += columnName;
     var columnValue = "<td>" + columnValueArray[i] +"</td>";
-    result += columnValue;
+    resultContent += columnValue;
+
+
 
 }
-    result += "</tr>"
 
-    document.getElementById("tableUser").innerHTML = result;
+  return [resultHeader, resultContent];
 
 
 
