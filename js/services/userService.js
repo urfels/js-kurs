@@ -4,6 +4,10 @@ class UserService{
   var user = UserService.createUser(1, "Herbert", "xxxx", "herbert@irgendwas.de", "01.01.1900");
   var user2 =UserService.createUser(2, "Felix", "x", "Felix@irgendwas.de", "01.01.1900");
     var user3 =UserService.createUser(3, "Max", "xzzzz", "Max@irgendwas.de", "01.01.1900");
+
+    var address1 = new Address("Doberanerplatz", "18057", "Rostock");
+    user.address = address1;
+
   var userList = new UserList();
   userList.addUser(user);
   userList.addUser(user2);
@@ -50,24 +54,33 @@ class UserService{
 
     var columnName = "<th>" + correctColumnName + "</th>";
     resultHeader += columnName;
-    var columnValue = "<td>" + columnValueArray[i] +"</td>";
+
+    var columnValue = UserService.generateTdLine(columnValueArray[i]);
     resultContent += columnValue;
 
-
-
-}
+  }
 
   return [resultHeader, resultContent];
-
-
-
 }
 
+  static generateTdLine(value){
+    var columnValue = "";
+    if (value instanceof Address) {
+        var columnValue = "<td>" + value.street +" "+ value.postCode +" "+ value.city +"</td>";
+
+    }
+    else {
+      if(value === undefined){
+         columnValue = "<td>" + "keine adresse angegeben" + "</td>";
+      }
+      else {
+         columnValue = "<td>" + value + "</td>";
+      }
+    }
+return columnValue;
+}
    static changePassword(oldPassword, newPassword, repeatedNewPassword){
       return "passwordChanged";
   }
-
-
-
 
 }
